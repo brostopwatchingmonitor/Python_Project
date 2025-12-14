@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Video Downloader</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-bolt"></i> FlashDown</h1>
+            <p>Download videos from YouTube, Instagram, Facebook, and more.</p>
+        </header>
+
+        <main>
+            <div class="input-group">
+                <input type="text" id="videoUrl" placeholder="Paste video URL here..." autocomplete="off">
+                <button id="downloadBtn"><i class="fas fa-download"></i> Download</button>
+            </div>
+
+            <div id="messageArea"></div>
+
+            <div id="loading" class="hidden">
+                <div class="spinner"></div>
+                <p>Processing video...</p>
+            </div>
+
+            <div id="resultArea" class="hidden">
+                <div class="card">
+                    <img id="thumbnail" src="" alt="Video Thumbnail">
+                    <div class="card-content">
+                        <h3 id="videoTitle">Video Title</h3>
+                        <div class="meta">
+                            <span id="platform" class="badge">Platform</span>
+                            <span id="duration" class="badge">Duration</span>
+                        </div>
+                        <div class="download-actions">
+                            <a id="downloadVideo" href="#" target="_blank" class="btn-primary">
+                                <i class="fas fa-video"></i> Download Video
+                            </a>
+                            <a id="downloadAudio" href="#" target="_blank" class="btn-secondary">
+                                <i class="fas fa-music"></i> Download Audio (M4A)
+                            </a>
+                            <button id="downloadMp3" class="btn-secondary">
+                                <i class="fas fa-file-audio"></i> Download MP3
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 FlashDown. Powered by Flask & yt-dlp.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
