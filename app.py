@@ -326,5 +326,10 @@ def download_mp3():
 
 if __name__ == '__main__':
     print("Starting Flask server...")
-    print("Logs will be saved to 'app.log' and printed to console.")
-    app.run(debug=True, port=5000)
+    # Ambil port dari Environment Variable yang disediakan Render
+    # Jika tidak ada (misal di laptop), pakai default 5000
+    port = int(os.environ.get("PORT", 5000)) 
+    
+    # Matikan debug=True jika sudah online agar aman
+    # Gunakan '0.0.0.0' agar bisa diakses dari luar container
+    app.run(host='0.0.0.0', port=port)
