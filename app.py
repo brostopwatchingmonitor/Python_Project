@@ -8,6 +8,7 @@ import shutil
 import os
 import tempfile
 import io
+import re
 
 class DummyLogger:
     def debug(self, msg):
@@ -145,6 +146,53 @@ def get_video_info(url):
         app.logger.error(f"General Error: {error_msg}")
         app.logger.critical(traceback.format_exc())
         return {'status': 'error', 'message': 'Internal Server Error.', 'debug_error': error_msg}
+
+@app.route('/search', methods=['POST'])
+def search_video():
+    """API Endpoint to search for videos on YouTube."""
+    try:
+        data = request.get_json()
+        query = data.get('query')
+
+        if not query:
+            return jsonify({'error': 'Query parameter is required'}), 400
+
+        app.logger.info(f"Searching for: {query}")
+
+        # Use ytsearch5 to get top 5 results
+        ydl_opts = {
+            'format': 'best',
+            'quiet': True,
+            'no_warnings': True,
+            'extract_flat': 'in_playlist', # Don't extract full info for every video immediately, just metadata is enough
+            'skip_download': True,
+        }
+
+        search_query = f"ytsearch5:{query}"
+        
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(search_query, download=False)
+            
+            results = []
+            if 'entries' in info:
+                for entry in info['entries']:
+                    results.append({
+                        'title': entry.get('title'),
+                        'url': entry.get('url'),
+                        'thumbnail': entry.get('thumbnails', [{}])[0].get('url') if entry.get('thumbnails') else None,
+                        'duration': entry.get('duration'),
+                        'uploader': entry.get('uploader'),
+                        'view_count': entry.get('view_count'),
+                        # If url is missing (sometimes happens with flat extraction), construct it
+                        'video_url': entry.get('url') if entry.get('url') else f"https://www.youtube.com/watch?v={entry.get('id')}"
+                    })
+
+            return jsonify({'status': 'success', 'results': results})
+
+    except Exception as e:
+        app.logger.exception("Unhandled exception in /search endpoint")
+        return jsonify({'error': str(e)}), 500
+
 
 @app.route('/')
 def index():

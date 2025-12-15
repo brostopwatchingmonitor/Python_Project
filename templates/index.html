@@ -19,11 +19,16 @@
 
         <main>
             <div class="input-group">
-                <input type="text" id="videoUrl" placeholder="Paste video URL here..." autocomplete="off">
+                <input type="text" id="videoUrl" placeholder="Paste video URL or search query..." autocomplete="off">
                 <button id="downloadBtn"><i class="fas fa-download"></i> Download</button>
             </div>
 
             <div id="messageArea"></div>
+
+            <div id="searchResults" class="hidden search-results-grid">
+                <!-- Search results will be injected here -->
+            </div>
+
 
             <div id="loading" class="hidden">
                 <div class="spinner"></div>

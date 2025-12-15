@@ -268,3 +268,116 @@ footer {
     color: var(--text-secondary);
     font-size: 0.8rem;
 }
+
+/* Search Results Grid */
+.search-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.search-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    animation: slideUp 0.3s ease-out;
+}
+
+.search-card:hover {
+    transform: translateY(-4px);
+}
+
+.search-thumb-container {
+    position: relative;
+    padding-top: 56.25%;
+    /* 16:9 Aspect Ratio */
+}
+
+.search-thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.search-duration {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.search-content {
+    padding: 15px;
+}
+
+.search-title {
+    margin-bottom: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.3;
+    height: 2.6em;
+    /* Fixed height for 2 lines */
+}
+
+.search-uploader {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.search-btn {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.search-btn i {
+    margin-right: 4px;
+}
+
+.btn-dl-mp4 {
+    background: var(--accent);
+    color: white;
+}
+
+.btn-dl-mp4:hover {
+    background: var(--accent-hover);
+}
+
+.btn-dl-mp3 {
+    background: var(--success);
+    color: white;
+}
+
+.btn-dl-mp3:hover {
+    background: #16a34a;
+}
